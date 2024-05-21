@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <label for="pass">ENTER PASSWORD</label>
+        <input type="password" id="pass" />
+        <scan onmouseenter="showPass()" onmouseleave="hidepass()">Show</scan>
+    </body>
+    <script>
+        function showPass() {
+            document.getElementById("pass").setAttribute("type", "text");
+        }
+        function hidepass() {
+            document.getElementById("pass").setAttribute("type", "password");
+        }
+    </script>
+</html>

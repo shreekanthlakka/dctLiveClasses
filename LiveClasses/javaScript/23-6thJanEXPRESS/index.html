@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <button onclick="handleClick()">Get data</button>
+        <button onclick="handleCourses()">Get Courses Data</button>
+        <h2 id="students"></h2>
+        <h2 id="courses"></h2>
+        <script>
+            function handleClick() {
+                const xhr = new XMLHttpRequest();
+                xhr.open("GET", "http://localhost:5000/students");
+                xhr.send();
+                xhr.onload = () => {
+                    const data = JSON.parse(xhr.responseText);
+                    console.log(data);
+                    const studentsList = document.getElementById("students");
+                    studentsList.innerHTML = `<h2>Count is ${data.data.length} </h2>`;
+                };
+            }
+            async function handleCourses() {
+                const res = await fetch("http://localhost:5000/courses");
+                const data = await res.json();
+                console.log(data);
+
+                const coursesList = document.getElementById("courses");
+                coursesList.innerHTML = `This course has ${data.data.length} lessons.`;
+            }
+        </script>
+    </body>
+</html>

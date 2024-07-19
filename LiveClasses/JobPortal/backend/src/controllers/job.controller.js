@@ -130,7 +130,8 @@ const application = asyncHandler(async (req, res) => {
 
 const getSingleApplicationByJobId = asyncHandler(async (req, res) => {
     const { jobId, appId } = req.params;
-    const job = await Job.find({ _id: jobId, recruiterId: req.user._id });
+    console.log("JOBID ==>", jobId, "APPID ==> ", appId);
+    const job = await Job.findOne({ _id: jobId, recruiterId: req.user._id });
     if (!job) {
         return res.status(404).json(new CustomError(404, "record not found"));
     }

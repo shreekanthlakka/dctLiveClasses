@@ -85,7 +85,7 @@ function Login() {
     }
 
     useEffect(() => {
-        if (error) {
+        if (error && !isLoading) {
             toast.error(error);
         }
         if (userAccount && isLoggedIn && !isLoading) {

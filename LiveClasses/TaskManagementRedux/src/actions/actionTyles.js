@@ -1,0 +1,9 @@
+export const ADD_TASK = "ADD_TASK";
+export const REMOVE_TASK = "REMOVE_TASK";
+export const TOGGLE_IS_COMPLETED = "TOGGLE_IS_COMPLETED";
+export const CHANGE_STATUS = "CHANGE_STATUS";
+export const ALL = "ALL";
+export const PENDING = "PENDING";
+export const COMPLETED = "COMPLETED";
+export const EDIT_TASK = "EDIT_TASK";
+export const UPDATE_TASK = "UPDATE_TASK";

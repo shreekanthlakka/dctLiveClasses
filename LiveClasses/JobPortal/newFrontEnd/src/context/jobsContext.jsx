@@ -4,8 +4,10 @@ import {
     editJobApi,
     getAllJobDetailsApi,
     getApplicationsByJobId,
+    getSingleApplicationByJobId,
     getSingleJobDetailsApi,
 } from "../services/jobService";
+import { isLocale } from "validator";
 
 const jobContext = createContext();
 
@@ -15,6 +17,7 @@ const initialState = {
     errors: null,
     selectedJob: {},
     appliedCandidates: [],
+    selectedApplication: {},
 };
 
 function jobReducer(state, action) {
@@ -52,6 +55,12 @@ function jobReducer(state, action) {
                 ...state,
                 isLoading: false,
                 appliedCandidates: action.payload,
+            };
+        case "SET_SELECTED_APPLICATION":
+            return {
+                ...state,
+                isLoading: false,
+                selectedApplication: action.payload,
             };
         case "default":
             return state;
@@ -150,6 +159,22 @@ function JobContextProvider({ children }) {
         }
     };
 
+    const getSingleApplication = async (jobId, appId) => {
+        try {
+            dispatch({ type: "START" });
+            const res = await getSingleApplicationByJobId(jobId, appId);
+            if (!res.success) {
+                throw {
+                    message: res.message,
+                    status: res.status,
+                };
+            }
+            dispatch({ type: "SET_SELECTED_APPLICATION", payload: res.data });
+        } catch (error) {
+            dispatch({ type: "ERRORS", payload: error });
+        }
+    };
+
     const value = {
         jobs,
         isLoading,
@@ -161,6 +186,7 @@ function JobContextProvider({ children }) {
         selectedJob,
         appliedCandidates,
         getAppliedCandidates,
+        getSingleApplication,
     };
     return <jobContext.Provider value={value}>{children}</jobContext.Provider>;
 }
